@@ -10,6 +10,7 @@ fn main() {
     let mut game = Game::new("aardvark", 10).unwrap();
     let stdin = io::stdin();
 
+    tui::clear_screen();
     println!("Let's play hangman!");
 
     loop {
@@ -24,17 +25,19 @@ fn main() {
 
         let mut input = String::new();
         if let Err(_) = stdin.read_line(&mut input) {
-            println!("Invalid input!");
+            println!("\nInvalid input!");
             continue;
         };
 
         let command = match input.parse::<Command>() {
             Ok(c) => c,
             Err(e) => {
-                println!("{}", e);
+                println!("\n{}\n", e);
                 continue;
             }
         };
+
+        tui::clear_screen();
 
         match command {
             Command::TryLetter(c)  => tui::print_guess_response(game.guess_letter(c)),
