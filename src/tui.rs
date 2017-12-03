@@ -84,3 +84,8 @@ pub fn print_guess_response(response: Result<bool, GameError>) {
         Err(e) => println!("Error: {}", e),
     }
 }
+
+pub fn clear_screen() {
+    print!("{}[2J", 27 as char);
+    print!("{}[1;1H", 27 as char);
+}
