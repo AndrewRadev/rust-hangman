@@ -39,24 +39,25 @@ impl Display for Game {
         }
 
         if let Some(letter) = chars.next() {
-            if self.attempted_letters.contains(&letter) {
-                f.write_char(letter)?;
-            } else {
-                f.write_char('_')?;
-            }
+            self.fmt_letter(f, letter)?;
 
             while let Some(letter) = chars.next() {
                 f.write_char(' ')?;
-
-                if self.attempted_letters.contains(&letter) {
-                    f.write_char(letter)?;
-                } else {
-                    f.write_char('_')?;
-                }
+                self.fmt_letter(f, letter)?;
             }
         }
 
         Ok(())
+    }
+}
+
+impl Game {
+    fn fmt_letter(&self, f: &mut fmt::Formatter, letter: char) -> fmt::Result {
+        if self.attempted_letters.contains(&letter) {
+            f.write_char(letter)
+        } else {
+            f.write_char('_')
+        }
     }
 }
 
