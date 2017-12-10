@@ -9,11 +9,14 @@ pub struct Wordlist {
 
 impl Wordlist {
     pub fn from_io<T: BufRead>(io: T) -> Self {
-        let words = io.
-            lines().
-            filter_map(Result::ok).
+        let words = io.lines().
+            // unwrap results:
+            map(|res| res.expect("Couldn't read a line from the given IO")).
+            // remove extra whitespace:
             map(|l| l.trim().to_string()).
+            // remove non-words:
             filter(|l| l.chars().all(char::is_alphabetic)).
+            // remove empty lines:
             filter(|l| l.len() > 0).
             collect::<Vec<String>>();
 
