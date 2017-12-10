@@ -4,4 +4,5 @@ pub enum GameError {
     BadGuess(String),
     InvalidSolution(String),
     GameOver,
+    EmptyWordlist,
 }

@@ -20,6 +20,15 @@ impl Display for GameError {
             &GameError::GameOver => {
                 f.write_str("Game is already over!")
             },
+            &GameError::EmptyWordlist => {
+                f.write_str("Couldn't load any valid wordlist!\n")?;
+                f.write_str("Searched locations:\n")?;
+                f.write_str("  - ~/.hangman_words.txt\n")?;
+                f.write_str("\n")?;
+                f.write_str("Note that a wordlist needs to consist of at least one valid word\n")?;
+                f.write_str("(made up of alphabetical characters only)\n")?;
+                Ok(())
+            },
         }
     }
 }
