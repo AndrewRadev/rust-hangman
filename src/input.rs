@@ -1,5 +1,9 @@
 use std::str::FromStr;
+use std::io::BufReader;
+use std::fs::File;
+use std::env;
 
+use wordlist::Wordlist;
 use errors::GameError;
 
 #[derive(Debug)]
@@ -57,3 +61,22 @@ impl FromStr for Command {
     }
 }
 
+pub fn get_wordlist() -> Result<Wordlist, GameError> {
+    let mut wordlist = Wordlist::new();
+
+    // Try to load ~/.hangman_words.txt
+    if let Some(mut home_file_path) = env::home_dir() {
+        home_file_path.push(".hangman_words.txt");
+
+        if let Ok(home_file) = File::open(home_file_path) {
+            let reader = BufReader::new(home_file);
+            wordlist.load_io(reader);
+        }
+    }
+
+    if wordlist.is_empty() {
+        return Err(GameError::EmptyWordlist);
+    }
+
+    Ok(wordlist)
+}

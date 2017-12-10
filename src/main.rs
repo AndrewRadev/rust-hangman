@@ -1,17 +1,19 @@
 extern crate hangman;
 
 use hangman::game::Game;
-use hangman::input::Command;
-use hangman::wordlist::Wordlist;
+use hangman::input::{self, Command};
 use hangman::tui;
 
-use std::io::{self, Write, BufReader};
-use std::fs::File;
+use std::io::{self, Write};
 
 fn main() {
-    let file = File::open("words.txt").expect("Couldn't open words.txt");
-    let reader = BufReader::new(file);
-    let wordlist = Wordlist::from_io(reader);
+    let wordlist = match input::get_wordlist() {
+        Ok(w) => w,
+        Err(e) => {
+            println!("\n{}", e);
+            std::process::exit(1);
+        }
+    };
 
     let mut game = Game::new(wordlist.random(), 10).unwrap();
     let stdin = io::stdin();

@@ -17,7 +17,9 @@ fn test_initialize_wordlist() {
 fn test_wordlist_ignores_invalid_words() {
     let data: &[u8] = br"
         _foo_
+
         one
+
         123
     ";
     let wordlist = Wordlist::from_io(data);
@@ -30,7 +32,7 @@ fn test_wordlist_ignores_invalid_words() {
 #[should_panic]
 fn test_invalid_wordlist_empty() {
     let data: &[u8] = br"";
-    Wordlist::from_io(data);
+    Wordlist::from_io(data).random();
 }
 
 #[test]
