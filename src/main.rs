@@ -2,12 +2,18 @@ extern crate hangman;
 
 use hangman::game::Game;
 use hangman::input::Command;
+use hangman::wordlist::Wordlist;
 use hangman::tui;
 
-use std::io::{self, Write};
+use std::io::{self, Write, BufReader};
+use std::fs::File;
 
 fn main() {
-    let mut game = Game::new("aardvark", 10).unwrap();
+    let file = File::open("words.txt").expect("Couldn't open words.txt");
+    let reader = BufReader::new(file);
+    let wordlist = Wordlist::from_io(reader);
+
+    let mut game = Game::new(wordlist.random(), 10).unwrap();
     let stdin = io::stdin();
 
     tui::clear_screen();
