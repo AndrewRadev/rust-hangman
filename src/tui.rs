@@ -6,6 +6,9 @@ use crate::game::{Game, GameState};
 impl Display for GameError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
+            &GameError::IoError(ref e) => {
+                f.write_fmt(format_args!("{}", e))
+            }
             &GameError::ParseError(ref input) => {
                 f.write_fmt(format_args!("Invalid command: {:?}. ", &input))?;
                 f.write_str("Try the 'help' command for a list of valid commands")

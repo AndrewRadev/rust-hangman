@@ -64,6 +64,13 @@ impl FromStr for Command {
 pub fn get_wordlist() -> Result<Wordlist, GameError> {
     let mut wordlist = Wordlist::new();
 
+    // Try to load wordlist file from args
+    if let Some(filename) = env::args().nth(1) {
+        let args_file = File::open(filename)?;
+        let reader = BufReader::new(args_file);
+        wordlist.load_io(reader);
+    }
+
     // Try to load ~/.hangman_words.txt
     if let Some(mut home_file_path) = env::home_dir() {
         home_file_path.push(".hangman_words.txt");
