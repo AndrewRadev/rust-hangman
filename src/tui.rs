@@ -1,4 +1,5 @@
 use std::fmt::{self, Display, Write};
+use std::env;
 
 use errors::GameError;
 use game::{Game, GameState};
@@ -99,6 +100,10 @@ pub fn print_guess_response(response: Result<bool, GameError>) {
 }
 
 pub fn clear_screen() {
+    if env::var("DEBUG").is_ok() {
+        return;
+    }
+
     print!("{}[2J", 27 as char);
     print!("{}[1;1H", 27 as char);
 }
