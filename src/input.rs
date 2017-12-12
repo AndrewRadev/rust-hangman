@@ -83,6 +83,13 @@ pub fn get_wordlist() -> Result<Wordlist, GameError> {
         }
     }
 
+    // If nothing has been loaded, fall back to some built-ins
+    if wordlist.is_empty() {
+        println!("DEBUG: Nothing else loaded, loading wordlist from built-in words.txt");
+        let reader = BufReader::new(include_str!("../words.txt").as_bytes());
+        wordlist.load_io(reader)
+    }
+
     if wordlist.is_empty() {
         return Err(GameError::EmptyWordlist);
     }
