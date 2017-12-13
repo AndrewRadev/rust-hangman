@@ -10,8 +10,6 @@ use hangman::tui;
 
 fn main() {
     let options = Options::from_args();
-    println!("{:?}", options);
-
     let wordlist = match input::get_wordlist(options.wordlist_path) {
         Ok(w) => w,
         Err(e) => {
