@@ -6,6 +6,19 @@ use std::env;
 use wordlist::Wordlist;
 use errors::GameError;
 
+#[derive(StructOpt, Debug)]
+#[structopt(name="hangman", about="A game of Hangman")]
+pub struct Options {
+    #[structopt(short="w", long="wordlist", help="The path to a word list")]
+    pub wordlist_path: Option<String>,
+
+    #[structopt(short="a", long="attempts", help="The number of attempts to guess the word", default_value="10")]
+    pub attempts: u32,
+
+    #[structopt(short="d", long="debug", help="Show debug info")]
+    pub debug: bool,
+}
+
 #[derive(Debug)]
 pub enum Command {
     TryLetter(char),
@@ -64,7 +77,7 @@ impl FromStr for Command {
 pub fn get_wordlist(wordlist_path: Option<String>) -> Result<Wordlist, GameError> {
     let mut wordlist = Wordlist::new();
 
-    // Try to load wordlist file from args
+    // Try to load provided wordlist file
     if let Some(filename) = wordlist_path {
         let args_file = File::open(&filename)?;
         let reader = BufReader::new(args_file);

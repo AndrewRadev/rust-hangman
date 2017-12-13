@@ -1,29 +1,12 @@
 extern crate hangman;
-
-use hangman::game::Game;
-use hangman::input::{self, Command};
-use hangman::tui;
+extern crate structopt;
 
 use std::io::{self, Write};
-
-extern crate structopt;
-#[macro_use]
-extern crate structopt_derive;
-
 use structopt::StructOpt;
 
-#[derive(StructOpt, Debug)]
-#[structopt(name="hangman", about="A game of Hangman")]
-pub struct Options {
-    #[structopt(short="w", long="wordlist", help="The path to a word list")]
-    wordlist_path: Option<String>,
-
-    #[structopt(short="a", long="attempts", help="The number of attempts to guess the word", default_value="10")]
-    attempts: u32,
-
-    #[structopt(short="d", long="debug", help="Show debug info")]
-    debug: bool,
-}
+use hangman::game::Game;
+use hangman::input::{self, Command, Options};
+use hangman::tui;
 
 fn main() {
     let options = Options::from_args();
