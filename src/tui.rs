@@ -1,5 +1,4 @@
 use std::fmt::{self, Display, Write};
-use std::env;
 
 use crate::errors::GameError;
 use crate::game::{Game, GameState};
@@ -28,6 +27,7 @@ impl Display for GameError {
                 f.write_str("Couldn't load any valid wordlist!\n")?;
                 f.write_str("Searched locations:\n")?;
                 f.write_str("  - ~/.hangman_words.txt\n")?;
+                f.write_str("  - A file provided via `-w <filename>`\n")?;
                 f.write_str("\n")?;
                 f.write_str("Note that a wordlist needs to consist of at least one valid word\n")?;
                 f.write_str("(made up of alphabetical characters only)\n")?;
@@ -99,10 +99,8 @@ pub fn print_guess_response(response: Result<bool, GameError>) {
     }
 }
 
-pub fn clear_screen() {
-    if env::var("DEBUG").is_ok() {
-        return;
-    }
+pub fn clear_screen(debug: bool) {
+    if debug { return; }
 
     print!("{}[2J", 27 as char);
     print!("{}[1;1H", 27 as char);

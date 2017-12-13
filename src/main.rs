@@ -6,8 +6,30 @@ use hangman::tui;
 
 use std::io::{self, Write};
 
+extern crate structopt;
+#[macro_use]
+extern crate structopt_derive;
+
+use structopt::StructOpt;
+
+#[derive(StructOpt, Debug)]
+#[structopt(name="hangman", about="A game of Hangman")]
+pub struct Options {
+    #[structopt(short="w", long="wordlist", help="The path to a word list")]
+    wordlist_path: Option<String>,
+
+    #[structopt(short="a", long="attempts", help="The number of attempts to guess the word", default_value="10")]
+    attempts: u32,
+
+    #[structopt(short="d", long="debug", help="Show debug info")]
+    debug: bool,
+}
+
 fn main() {
-    let wordlist = match input::get_wordlist() {
+    let options = Options::from_args();
+    println!("{:?}", options);
+
+    let wordlist = match input::get_wordlist(options.wordlist_path) {
         Ok(w) => w,
         Err(e) => {
             println!("\n{}", e);
@@ -15,10 +37,10 @@ fn main() {
         }
     };
 
-    let mut game = Game::new(wordlist.random(), 10).unwrap();
+    let mut game = Game::new(wordlist.random(), options.attempts).unwrap();
     let stdin = io::stdin();
 
-    tui::clear_screen();
+    tui::clear_screen(options.debug);
     println!("Let's play hangman!");
 
     loop {
@@ -45,7 +67,7 @@ fn main() {
             }
         };
 
-        tui::clear_screen();
+        tui::clear_screen(options.debug);
 
         match command {
             Command::TryLetter(c)  => tui::print_guess_response(game.guess_letter(c)),
