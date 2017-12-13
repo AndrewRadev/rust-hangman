@@ -5,3 +5,5 @@ authors = ["Andrew Radev <andrey.radev@gmail.com>"]
 
 [dependencies]
 rand = "*"
+structopt = "*"
+structopt-derive = "*"
