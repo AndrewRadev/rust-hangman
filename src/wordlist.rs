@@ -47,7 +47,7 @@ impl Wordlist {
         }
 
         let mut rng = rand::thread_rng();
-        let n = rng.gen_range(0, self.words.len());
+        let n = rng.gen_range(0 .. self.words.len());
 
         &self.words[n]
     }
