@@ -73,11 +73,11 @@ impl FromStr for Command {
     }
 }
 
-pub fn get_wordlist(wordlist_path: Option<String>) -> Result<Wordlist, GameError> {
+pub fn get_wordlist(wordlist_path: impl Into<Option<String>>) -> Result<Wordlist, GameError> {
     let mut wordlist = Wordlist::new();
 
     // Try to load provided wordlist file
-    if let Some(filename) = wordlist_path {
+    if let Some(filename) = wordlist_path.into() {
         let args_file = File::open(&filename)?;
         let reader = BufReader::new(args_file);
         println!("DEBUG: Loading wordlist from: {:?}", filename);
