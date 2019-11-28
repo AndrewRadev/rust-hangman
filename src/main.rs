@@ -1,6 +1,3 @@
-extern crate hangman;
-extern crate structopt;
-
 use std::io::{self, Write};
 use structopt::StructOpt;
 

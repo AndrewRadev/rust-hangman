@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 use std::iter::FromIterator;
 
-use errors::GameError;
+use crate::errors::GameError;
 
 pub enum GameState {
     InProgress,

@@ -1,7 +1,7 @@
 use std::fmt::{self, Display, Write};
 
-use errors::GameError;
-use game::{Game, GameState};
+use crate::errors::GameError;
+use crate::game::{Game, GameState};
 
 impl Display for GameError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

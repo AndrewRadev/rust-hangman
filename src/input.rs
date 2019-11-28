@@ -2,8 +2,10 @@ use std::str::FromStr;
 use std::io::BufReader;
 use std::fs::File;
 
-use wordlist::Wordlist;
-use errors::GameError;
+use structopt_derive::StructOpt;
+
+use crate::wordlist::Wordlist;
+use crate::errors::GameError;
 
 #[derive(StructOpt, Debug)]
 #[structopt(name="hangman", about="A game of Hangman")]

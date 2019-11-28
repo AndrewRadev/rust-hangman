@@ -1,7 +1,5 @@
-extern crate rand;
-
 use std::io::BufRead;
-use self::rand::Rng;
+use rand::Rng;
 
 pub struct Wordlist {
     words: Vec<String>,
