@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Andrew Radev <andrey.radev@gmail.com>"]
 
 [dependencies]
+dirs = "*"
 rand = "*"
 structopt = "*"
 structopt-derive = "*"

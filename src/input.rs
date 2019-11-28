@@ -1,7 +1,6 @@
 use std::str::FromStr;
 use std::io::BufReader;
 use std::fs::File;
-use std::env;
 
 use wordlist::Wordlist;
 use errors::GameError;
@@ -86,7 +85,7 @@ pub fn get_wordlist(wordlist_path: Option<String>) -> Result<Wordlist, GameError
     }
 
     // Try to load ~/.hangman_words.txt
-    if let Some(mut home_file_path) = env::home_dir() {
+    if let Some(mut home_file_path) = ::dirs::home_dir() {
         home_file_path.push(".hangman_words.txt");
 
         if let Ok(home_file) = File::open(&home_file_path) {

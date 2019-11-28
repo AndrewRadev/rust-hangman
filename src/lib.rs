@@ -1,3 +1,4 @@
+extern crate dirs;
 extern crate structopt;
 #[macro_use]
 extern crate structopt_derive;
