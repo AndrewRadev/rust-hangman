@@ -5,6 +5,7 @@ authors = ["Andrew Radev <andrey.radev@gmail.com>"]
 edition= "2021"
 
 [dependencies]
+dirs = "*"
 rand = "*"
 structopt = "*"
 structopt-derive = "*"
