@@ -5,7 +5,7 @@ authors = ["Andrew Radev <andrey.radev@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-dirs = "*"
-rand = "*"
-structopt = "*"
-structopt-derive = "*"
+dirs = "2.0.2"
+rand = "0.7.2"
+structopt = { version = "0.3.5", default-features = false }
+structopt-derive = "0.3.5"
