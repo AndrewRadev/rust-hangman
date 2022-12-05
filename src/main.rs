@@ -10,7 +10,7 @@ fn main() {
     let wordlist = match input::get_wordlist(options.wordlist_path) {
         Ok(w) => w,
         Err(e) => {
-            println!("\n{}", e);
+            eprintln!("\n{}", e);
             std::process::exit(1);
         }
     };
