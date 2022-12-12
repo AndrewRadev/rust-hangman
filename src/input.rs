@@ -6,16 +6,16 @@ use std::str::FromStr;
 use crate::wordlist::Wordlist;
 use crate::errors::GameError;
 
-#[derive(StructOpt, Debug)]
-#[structopt(name="hangman", about="A game of Hangman")]
+#[derive(clap::Parser, Debug)]
+#[command(name="hangman", about="A game of Hangman")]
 pub struct Options {
-    #[structopt(short="w", long="wordlist", help="The path to a word list")]
+    #[arg(short='w', long="wordlist", help="The path to a word list")]
     pub wordlist_path: Option<PathBuf>,
 
-    #[structopt(short="a", long="attempts", help="The number of attempts to guess the word", default_value="10")]
+    #[arg(short='a', long="attempts", help="The number of attempts to guess the word", default_value="10")]
     pub attempts: u32,
 
-    #[structopt(short="d", long="debug", help="Show debug info")]
+    #[arg(short='d', long="debug", help="Show debug info")]
     pub debug: bool,
 }
 

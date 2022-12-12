@@ -1,5 +1,3 @@
-extern crate hangman;
-
 use hangman::game::Game;
 use hangman::input::Command;
 use hangman::errors::GameError;

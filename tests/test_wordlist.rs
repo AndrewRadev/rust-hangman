@@ -1,4 +1,3 @@
-extern crate hangman;
 use hangman::wordlist::Wordlist;
 
 #[test]

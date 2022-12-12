@@ -7,5 +7,4 @@ edition= "2021"
 [dependencies]
 dirs = "*"
 rand = "*"
-structopt = "*"
-structopt-derive = "*"
+clap = { version = "*", features = ["derive"] }

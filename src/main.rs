@@ -1,15 +1,13 @@
-extern crate hangman;
-extern crate structopt;
-
 use std::io::{self, Write};
-use structopt::StructOpt;
+
+use clap::Parser;
 
 use hangman::game::Game;
 use hangman::input::{self, Command, Options};
 use hangman::tui;
 
 fn main() {
-    let options = Options::from_args();
+    let options = Options::parse();
     let wordlist = match input::get_wordlist(options.wordlist_path) {
         Ok(w) => w,
         Err(e) => {
